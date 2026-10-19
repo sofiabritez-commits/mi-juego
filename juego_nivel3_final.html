@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNTAX SNIPER AI - Cyber Precision & NEAT AI</title>
+    <!-- Neataptic.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/neataptic@1.4.7/dist/neataptic.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --panel-bg: #161b22;
+            --card-bg: #21262d;
+            --border-color: #30363d;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-yellow: #d29922;
+            --accent-red: #f85149;
+            --text-color: #c9d1d9;
+            --text-bright: #f0f6fc;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --banner-bg: #1f6beb;
+            --crosshair-style: crosshair;
+            --slot-border: #30363d;
+            --slot-text: #f0f6fc;
+        }
+
+        body.theme-environmental {
+            --bg-color: #1a2e22;
+            --panel-bg: #2d4a3e;
+            --card-bg: #375a4c;
+            --border-color: #74c69d;
+            --accent-blue: #52b788;
+            --accent-green: #95d5b2;
+            --accent-yellow: #d8f3dc;
+            --text-color: #e2f0d9;
+            --text-bright: #ffffff;
+            --banner-bg: #2d6a4f;
+            --slot-border: #74c69d;
+            --slot-text: #d8f3dc;
+        }
+
+        body.theme-pixelated {
+            --bg-color: #000000;
+            --panel-bg: #111122;
+            --card-bg: #222244;
+            --border-color: #00ff66;
+            --accent-blue: #00e5ff;
+            --accent-green: #00ff66;
+            --accent-yellow: #ffff00;
+            --text-color: #00ff66;
+            --text-bright: #ffffff;
+            --font-main: 'Press Start 2P', monospace;
+            --banner-bg: #440088;
+            --slot-border: #00ff66;
+            --slot-text: #00ff66;
+        }
+
+        body.theme-retro {
+            --bg-color: #1a0f1a;
+            --panel-bg: #2b172b;
+            --card-bg: #3d213d;
+            --border-color: #ff7700;
+            --accent-blue: #ff0077;
+            --accent-green: #00ffcc;
+            --accent-yellow: #ffcc00;
+            --text-color: #f0d0f0;
+            --text-bright: #ffffff;
+            --banner-bg: #ff0077;
+            --slot-border: #ff0077;
+            --slot-text: #ffcc00;
+        }
+
+        body.theme-cyberpunk {
+            --bg-color: #050510;
+            --panel-bg: #0d0e26;
+            --card-bg: #181a40;
+            --border-color: #ff0055;
+            --accent-blue: #00f0ff;
+            --accent-green: #39ff14;
+            --accent-yellow: #ffe600;
+            --text-color: #e0e0ff;
+            --text-bright: #ffffff;
+            --banner-bg: #ff0055;
+            --slot-border: #00f0ff;
+            --slot-text: #00f0ff;
+        }
+
+        body.theme-ultra-gold {
+            --bg-color: #1a1500;
+            --panel-bg: #2b2400;
+            --card-bg: #403600;
+            --border-color: #ffd700;
+            --accent-blue: #ffe066;
+            --accent-green: #00ffaa;
+            --accent-yellow: #ffffff;
+            --text-color: #fff3cc;
+            --text-bright: #ffffff;
+            --banner-bg: #b38728;
+            --slot-border: #ffd700;
+            --slot-text: #ffd700;
+        }
+
+        body.theme-hyper-neon {
+            --bg-color: #03001e;
+            --panel-bg: #7303c0;
+            --card-bg: #03001e;
+            --border-color: #ec38bc;
+            --accent-blue: #fdeff9;
+            --accent-green: #00ffcc;
+            --accent-yellow: #ff0077;
+            --text-color: #ffffff;
+            --text-bright: #ffffff;
+            --banner-bg: #ec38bc;
+            --font-main: 'Press Start 2P', monospace;
+            --slot-border: #ec38bc;
+            --slot-text: #00ffcc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            box-shadow: none !important;
+            text-shadow: none !important;
+            backdrop-filter: none !important;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 20px 0;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .app-container {
+            width: 850px;
+            position: relative;
+        }
+
+        .header-banner {
+            width: 100%;
+            background: var(--banner-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px 12px 0 0;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .banner-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-bright);
+            letter-spacing: 1px;
+        }
+
+        .banner-sub {
+            font-size: 11px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .top-bar {
+            width: 100%;
+            background: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .lives-display {
+            font-size: 18px;
+            color: var(--accent-red);
+            letter-spacing: 2px;
+        }
+
+        .timer-display {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--accent-yellow);
+            background: var(--card-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .user-tag {
+            font-size: 12px;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .level-tag {
+            font-size: 12px;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .timer-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .timer-bar-fill {
+            height: 100%;
+            width: 100%;
+            background: var(--accent-yellow);
+            transition: width 0.1s linear, background-color 0.3s;
+        }
+
+        .xp-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #111;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .xp-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-blue);
+            transition: width 0.4s ease;
+        }
+
+        .dashboard {
+            width: 100%;
+            background: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            transition: all 0.5s ease;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            text-align: center;
+        }
+
+        .metric-card .label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #8b949e;
+            margin-bottom: 2px;
+        }
+
+        .metric-card .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .metric-card .value.multiplier { color: var(--accent-green); }
+        .metric-card .value.accuracy { color: var(--accent-yellow); }
+
+        .word-display-box {
+            width: 100%;
+            background: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.5s ease;
+        }
+
+        .full-word-preview {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(210, 153, 34, 0.1);
+            padding: 4px 14px;
+            border-radius: 12px;
+            border: 1px dashed var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .word-letters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .letter-slot {
+            width: 42px;
+            height: 50px;
+            border-bottom: 4px solid var(--slot-border);
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slot-text);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .letter-slot.filled {
+            border-bottom-color: var(--accent-green);
+            color: var(--accent-green);
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        .letter-slot.current-target {
+            border-bottom-color: var(--accent-blue);
+            animation: pulse-border 1.2s infinite alternate;
+        }
+
+        @keyframes pulse-border {
+            0% { border-bottom-color: var(--accent-blue); transform: translateY(0); }
+            100% { border-bottom-color: var(--accent-green); transform: translateY(-2px); }
+        }
+
+        #game-stage {
+            width: 100%;
+            height: 430px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 12px 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: var(--crosshair-style);
+            transition: all 0.5s ease;
+        }
+
+        .target-bubble {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--panel-bg);
+            border: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-bright);
+            transform: translate(-50%, -50%);
+            transition: border-color 0.2s, transform 0.2s ease-out;
+            will-change: left, top;
+        }
+
+        .target-bubble:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .target-bubble.bug-bubble {
+            border-color: var(--accent-red);
+            background: rgba(248, 81, 73, 0.15);
+            color: var(--accent-red);
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 6;
+            animation: particleFade 0.6s ease-out forwards;
+        }
+
+        @keyframes particleFade {
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+        }
+
+        #nn-canvas {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            background: rgba(13, 17, 23, 0.85);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .ready-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d1117;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 8;
+            transition: opacity 0.4s ease;
+        }
+
+        .ready-card {
+            background: var(--panel-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 24px 32px;
+            text-align: center;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .ready-word-display {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent-yellow);
+            margin: 16px 0;
+            letter-spacing: 4px;
+        }
+
+        .ready-timer {
+            font-size: 14px;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .hit-effect {
+            position: absolute;
+            pointer-events: none;
+            font-weight: 700;
+            font-size: 16px;
+            animation: floatUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.8); }
+            50% { transform: translate(-50%, -70px) scale(1.2); }
+            100% { opacity: 0; transform: translate(-50%, -100px) scale(1); }
+        }
+
+        .powerups-bar {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            display: flex;
+            gap: 10px;
+            z-index: 4;
+            background: var(--panel-bg);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .powerup-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-bright);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .powerup-btn:hover:not(:disabled) {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .powerup-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d1117;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .overlay-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-bright);
+            margin-bottom: 6px;
+        }
+
+        .overlay-subtitle {
+            font-size: 13px;
+            color: #8b949e;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 520px;
+            line-height: 1.4;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 280px;
+        }
+
+        .diff-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            width: 320px;
+        }
+
+        .diff-btn {
+            flex: 1;
+            padding: 10px 4px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .diff-btn.selected {
+            border-color: var(--accent-blue);
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .diff-btn.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #444;
+        }
+
+        .diff-btn .lock-tag {
+            font-size: 9px;
+            color: var(--accent-yellow);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 280px;
+            margin-bottom: 16px;
+        }
+
+        .auth-input {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-bright);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .auth-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .btn {
+            background: var(--card-bg);
+            color: var(--text-bright);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--accent-blue);
+            color: #0d1117;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn.btn-primary {
+            background: var(--accent-green);
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn.btn-primary:hover {
+            background: #2ea043;
+            color: #ffffff;
+        }
+
+        .modal-body {
+            width: 100%;
+            max-width: 550px;
+            max-height: 280px;
+            overflow-y: auto;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .shop-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .shop-tab-btn {
+            flex: 1;
+            padding: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .shop-tab-btn.active {
+            background: var(--accent-blue);
+            color: #0d1117;
+            border-color: var(--accent-blue);
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .shop-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .shop-card.ultimate-pack {
+            border: 2px solid var(--accent-yellow);
+            background: var(--card-bg);
+        }
+
+        .shop-card h4 {
+            font-size: 13px;
+            color: var(--text-bright);
+        }
+
+        .shop-card p {
+            font-size: 10px;
+            color: #8b949e;
+        }
+
+        .ai-status-bar {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #8b949e;
+            background: var(--panel-bg);
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
+        }
+
+        .ai-status-bar span {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .tutorial-step {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tutorial-icon {
+            font-size: 40px;
+        }
+
+
+        /* Colorful guide and supportive puppy */
+        body { background: radial-gradient(circle at top, #dff7ff, #f5e6ff 48%, #fff1d6); }
+        .app-container { width: min(1000px, 96vw); }
+        .header-banner { background: linear-gradient(110deg,#6c3df4,#168cff,#00c9a7); border: 3px solid #ffffff; }
+        .top-bar { background: linear-gradient(90deg,#162d76,#273fb0,#652cb3); gap: 12px; flex-wrap: wrap; border-color:#7adfff; }
+        .lives-display { background:#fff0f5; color:#e91e63; padding:8px 12px; border-radius:18px; border:2px solid #ff77a8; }
+        .timer-display { background:linear-gradient(135deg,#fff4a8,#ffbd59); color:#723d00; border:2px solid #fff; }
+        .user-tag,.level-tag { background:#ffffff22; padding:7px 10px; border-radius:12px; color:#fff; }
+        .xp-bar-container { height:11px; background:#d8c8ff; }
+        .xp-bar-fill { background:linear-gradient(90deg,#ff4fc3,#8b5cf6,#00d4ff); }
+        .timer-bar-container { height:10px; background:#ffd4e4; }
+        .timer-bar-fill { background:linear-gradient(90deg,#00d084,#ffe04b,#ff5470); }
+        .dashboard { background:#edf7ff; border-color:#8bd8ff; }
+        .metric-card { background:linear-gradient(145deg,#fff,#e7f2ff); border:2px solid #c4a8ff; }
+        .metric-card:nth-child(2) { background:linear-gradient(145deg,#fff0f8,#ffd7ec); }
+        .metric-card:nth-child(3) { background:linear-gradient(145deg,#fffbe1,#ffef9e); }
+        .metric-card:nth-child(4) { background:linear-gradient(145deg,#e0fff5,#a9f5dd); }
+        .word-display-box { background:linear-gradient(135deg,#fff6d9,#ffe7f5,#dff5ff); border-color:#9e8aff; }
+        .full-word-preview { background:#fff; color:#7a42e8; border:2px dashed #ff8ac5; }
+        #game-stage { background:radial-gradient(circle at 20% 20%,#ffe6f6,#dff6ff 48%,#e7ffdc); border:3px solid #7b6dff; }
+        .target-bubble { background:linear-gradient(145deg,#fff,#bde9ff); color:#17337e; border:3px solid #168cff; box-shadow:0 5px 0 #78b7ff !important; }
+        .target-bubble:nth-of-type(3n) { background:linear-gradient(145deg,#fff9be,#ffcf55); border-color:#f59e0b; }
+        .target-bubble:nth-of-type(4n) { background:linear-gradient(145deg,#d8fff0,#62e6b3); border-color:#10b981; }
+        .target-bubble.bug-bubble { background:linear-gradient(145deg,#ffe1e1,#ff7979); color:#8b1010; border-color:#ef4444; }
+        .metric-card .label { color:#53627f; }
+        .puppy-guide { background:rgba(23,35,93,.55); backdrop-filter:blur(4px) !important; }
+        .puppy-guide-card { width:min(740px,100%); display:grid; grid-template-columns:150px 1fr; align-items:center; gap:16px; padding:24px; background:linear-gradient(135deg,#fff9e7,#fff,#eaf7ff); border:4px solid #6d5dfc; border-radius:28px; color:#26366e; }
+        .puppy-avatar { grid-row:span 3; font-size:104px; background:linear-gradient(145deg,#ffe4a6,#ffc4dd); border-radius:24px; padding:15px 5px; border:3px solid #ffb45c; }
+        .puppy-guide-card h3 { color:#6938db; font-size:22px; }
+        .puppy-guide-card p { line-height:1.6; font-size:15px; }
+        .puppy-guide-card .btn-primary { background:linear-gradient(90deg,#16c784,#00a8e8); padding:13px 20px; border-radius:18px; }
+        .puppy-buddy { position:absolute; z-index:5; right:12px; bottom:74px; width:112px; padding:8px 5px; text-align:center; border:2px solid #ffbd59; border-radius:20px; background:linear-gradient(160deg,#fff6c9,#ffd6eb); color:#50318c; pointer-events:none; }
+        .puppy-buddy .buddy-face { font-size:44px; line-height:1.15; }
+        .puppy-buddy p { font-size:10px; font-weight:800; line-height:1.3; }
+        @media (max-width:650px) {
+          .puppy-guide-card { grid-template-columns:1fr; padding:16px; gap:8px; }
+          .puppy-avatar { grid-row:auto; font-size:58px; padding:4px; }
+          .puppy-guide-card h3 { font-size:17px; }
+          .puppy-guide-card p { font-size:12px; }
+          .top-bar { justify-content:center; }
+          .puppy-buddy { width:84px; right:6px; bottom:68px; }
+          .puppy-buddy .buddy-face { font-size:32px; }
+        }
+
+
+        /* Ajuste compacto: que se vean vidas, tiempo, nivel y puntaje sin ocupar tanto espacio */
+        body { padding: 8px 0; }
+        .app-container { width: min(900px, 94vw); }
+        .header-banner { padding: 10px 16px; }
+        .banner-title { font-size: 17px; }
+        .banner-sub { font-size: 10px; }
+        .header-actions { gap: 5px; }
+        .header-actions .btn { padding: 7px 10px; font-size: 11px; }
+        .top-bar { padding: 7px 12px; gap: 7px; }
+        .lives-display { padding: 5px 9px; font-size: 15px; }
+        .timer-display { padding: 4px 9px; font-size: 13px; }
+        .user-tag, .level-tag { padding: 5px 7px; font-size: 10px; }
+        .xp-bar-container { height: 7px; }
+        .timer-bar-container { height: 7px; }
+        .dashboard { padding: 7px 12px; gap: 8px; }
+        .metric-card { padding: 6px 8px; }
+        .metric-card .label { font-size: 8px; }
+        .metric-card .value { font-size: 14px; }
+        .word-display-box { padding: 10px; gap: 5px; }
+        .full-word-preview { font-size: 12px; padding: 3px 10px; }
+        .letter-slot { width: 36px; height: 40px; font-size: 21px; }
+        #game-stage { height: 340px; }
+        .puppy-buddy { right: 8px; bottom: 58px; width: 88px; padding: 5px 4px; }
+        .puppy-buddy .buddy-face { font-size: 35px; }
+        .puppy-buddy p { font-size: 9px; }
+        .powerups-bar { bottom: 8px; left: 8px; gap: 5px; padding: 5px 8px; }
+        .powerup-btn { padding: 4px 7px; font-size: 9px; }
+        .ai-status-bar { margin-top: 6px; padding: 5px 10px; font-size: 9px; }
+        .overlay { padding: 12px; }
+        .overlay-title { font-size: 22px; }
+        .overlay-subtitle { margin-bottom: 12px; font-size: 11px; }
+        @media (max-width: 650px) {
+          body { padding: 4px 0; }
+          .app-container { width: 96vw; }
+          .header-banner { padding: 8px; flex-wrap: wrap; gap: 8px; }
+          .banner-title { font-size: 14px; }
+          .header-actions { flex-wrap: wrap; }
+          .top-bar { padding: 6px; gap: 5px; }
+          .lives-display { font-size: 12px; }
+          .dashboard { padding: 6px; gap: 5px; }
+          .metric-card { padding: 5px 3px; }
+          .metric-card .label { font-size: 7px; }
+          .metric-card .value { font-size: 12px; }
+          #game-stage { height: 300px; }
+          .puppy-buddy { width: 70px; bottom: 60px; }
+          .puppy-buddy .buddy-face { font-size: 28px; }
+          .puppy-buddy p { font-size: 8px; }
+          .powerups-bar { max-width: calc(100% - 12px); flex-wrap: wrap; }
+          .powerup-btn { font-size: 8px; }
+        }
+
+        .matching-level-panel,.game-finale { position:absolute; inset:0; z-index:20; display:flex; align-items:center; justify-content:center; padding:14px; overflow:auto; background:rgba(0,0,0,.88); border-radius:18px; }
+        .matching-card,.game-finale-card { width:min(700px,100%); max-height:100%; overflow:auto; text-align:center; padding:22px; border-radius:24px; border:3px solid #fff; color:#fff; background:linear-gradient(145deg,#101010,#252525); box-shadow:0 0 24px #ffffff33; }
+        .matching-mascots { font-size:38px; }
+        .matching-card h2,.game-finale-card h2 { color:#fff; margin:8px 0; }
+        .matching-card p,.game-finale-card p { color:#f4f4f4; }
+        .matching-progress { color:#fff; font-weight:800; margin:12px 0 5px; }
+        .matching-connector { color:#fff; min-height:26px; font-weight:800; margin:8px; }
+        .matching-columns { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .matching-list { display:flex; flex-direction:column; gap:8px; }
+        .matching-item { border:2px solid #eee; border-radius:12px; padding:9px 8px; min-height:40px; background:#181818; color:#fff; font-weight:800; cursor:pointer; font-size:14px; transition:transform .12s,background .12s; }
+        .matching-item:hover:not(:disabled) { transform:scale(1.02); background:#333; }
+        .matching-item.selected { outline:3px solid #7dd3fc; background:#18364a; }
+        .matching-item.matched { background:#14532d; border-color:#4ade80; color:#fff; cursor:default; }
+        .matching-item.wrong { background:#7f1d1d; border-color:#f87171; }
+        .matching-feedback { min-height:24px; margin-top:12px; color:#fff; font-weight:800; }
+        .finale-animals { font-size:76px; margin:12px; animation: finaleBounce 1.2s ease-in-out infinite alternate; }
+        .finale-goodbye { border:2px dashed #fff; border-radius:15px; padding:12px; }
+        @keyframes finaleBounce { from { transform:translateY(0) } to { transform:translateY(-8px) } }
+        @media(max-width:520px) { .matching-card,.game-finale-card { padding:12px; } .matching-columns { gap:7px; } .matching-item { font-size:11px; padding:8px 4px; } .matching-card h2,.game-finale-card h2 { font-size:19px; } }
+    </style>
+
+<style>
+/* High-contrast letter-bubble game area */
+#stage, #game-stage, .game-stage, .stage, #play-area, .play-area {
+    background: #000000 !important;
+    background-image: none !important;
+    border-color: #333333 !important;
+}
+.target-bubble {
+    background: #171717 !important;
+    color: #ffffff !important;
+    border: 2px solid #f8fafc !important;
+    box-shadow: 0 0 8px rgba(255,255,255,0.22) !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 2px rgba(255,255,255,0.25) !important;
+}
+.target-bubble:hover {
+    background: #292929 !important;
+    color: #ffffff !important;
+}
+.target-bubble.bug-bubble {
+    background: #351010 !important;
+    color: #ffffff !important;
+    border-color: #ff7777 !important;
+}
+</style>
+
+</head>
+<body class="theme-default">
+
+<div class="app-container" id="app-root">
+
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <div>
+            <div class="banner-title" id="txt-banner-title">SYNTAX SNIPER AI</div>
+            <div class="banner-sub" id="txt-banner-sub">Cyber Precision & NEAT Neural Engine</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-sm" onclick="openTutorialModal()" style="width: auto;">❓ <span id="txt-btn-tut-nav">Tutorial</span></button>
+            <button class="btn btn-sm" id="fullscreen-btn" onclick="toggleFullscreen()" style="width: auto;">🔲 Fullscreen</button>
+            <button class="btn btn-sm" onclick="openShopModal()" style="width: auto;">🛒 <span id="txt-btn-shop-nav">Shop</span></button>
+            <button class="btn btn-sm" onclick="openConfigModal()" style="width: auto;">⚙️ <span id="txt-btn-config">Settings</span></button>
+        </div>
+    </div>
+
+    <!-- Top Bar Status -->
+    <div class="top-bar">
+        <div class="lives-display">
+            <span id="txt-lives-label">Lives:</span> <span id="lives-val">❤️❤️❤️❤️❤️</span>
+        </div>
+        <div class="user-tag" id="user-display">👤 Guest</div>
+        <div class="level-tag" id="level-display">⭐ Lvl 1 (0/100 XP)</div>
+        <div class="timer-display">
+            ⏱️ <span id="timer-val">10.0s</span>
+        </div>
+        <div class="points-display" style="font-size: 14px; color: var(--accent-yellow);">
+            🪙 Coins: <span id="coins-val">300</span>
+        </div>
+    </div>
+
+    <!-- XP Progress Bar -->
+    <div class="xp-bar-container" title="XP Progress to Next Level">
+        <div class="xp-bar-fill" id="xp-fill"></div>
+    </div>
+
+    <!-- Timer Progress Bar -->
+    <div class="timer-bar-container">
+        <div class="timer-bar-fill" id="timer-fill"></div>
+    </div>
+
+    <!-- Stats Dashboard -->
+    <div class="dashboard">
+        <div class="metric-card">
+            <div class="label" id="txt-lbl-score">Score</div>
+            <div class="value" id="score-val">0</div>
+        </div>
+        <div class="metric-card">
+            <div class="label" id="txt-lbl-streak">Streak</div>
+            <div class="value" id="streak-val">0x</div>
+        </div>
+        <div class="metric-card">
+            <div class="label" id="txt-lbl-acc">Accuracy</div>
+            <div class="value accuracy" id="accuracy-val">100%</div>
+        </div>
+        <div class="metric-card">
+            <div class="label" id="txt-lbl-mult">NEAT Mult.</div>
+            <div class="value multiplier" id="ai-mult-val">1.0x</div>
+        </div>
+    </div>
+
+    <!-- Target Word Slot Box -->
+    <div class="word-display-box">
+        <div class="full-word-preview">
+            <span id="full-word-target">WORD: -</span>
+            <button class="audio-btn" onclick="speakCurrentWord()" title="Listen pronunciation">🔊</button>
+        </div>
+        <div class="word-letters" id="word-container"></div>
+    </div>
+
+    <!-- Stage Area -->
+    <div id="game-stage">
+        
+        <!-- NEAT Network Visualizer Canvas -->
+        <canvas id="nn-canvas" width="160" height="90" title="Live Perceptron Activations"></canvas>
+
+        <!-- The puppy explains how to play before the first level starts -->
+        <div class="puppy-buddy" id="puppy-buddy">
+            <div class="buddy-face">🐶</div>
+            <p id="puppy-cheer">You can do it! 💖</p>
+        </div>
+        <div class="puppy-guide" id="puppy-guide">
+            <div class="puppy-guide-card">
+                <div class="puppy-avatar" aria-hidden="true" onclick="speakPuppyGuide()" style="cursor:pointer">🐶</div>
+                <h3>Hello! I will be your guide! 🐾</h3>
+                <p>
+                    You can do it! Look at the word above and click
+                    the bubbles with its letters in the correct order. Avoid the
+                    red bubbles and keep an eye on the timer. Protect your hearts!
+                    If you get stuck, take a breath and keep trying. 💖⭐
+                </p>
+                <button class="btn btn-primary" onclick="continueAfterPuppy()">🐾 Got it, let’s play!</button>
+            </div>
+        </div>
+
+        <div class="sentence-level-panel" id="sentence-level-panel">
+            <div class="sentence-card">
+                <div style="font-size:48px">🐶🌟</div>
+                <h2 id="sentence-title">Level 2: Complete the sentences!</h2>
+                <div class="sentence-progress" id="sentence-progress">Sentence 1 of 10</div>
+                <p>Choose the Level 1 word that completes the sentence. If you make a mistake, I will show you the correct answer and then we will move on to the next one. You can do it! 🐾</p>
+                <div class="sentence-question" id="sentence-question"></div>
+                <div class="sentence-options" id="sentence-options"></div>
+                <div class="sentence-feedback" id="sentence-feedback" style="display:none"></div>
+                <button class="sentence-next" id="sentence-next" onclick="advanceSentenceLevel()" style="display:none">Next sentence ➜</button>
+            </div>
+        </div>
+
+        <div class="matching-level-panel" id="matching-level-panel" style="display:none">
+            <div class="matching-card">
+                <div class="matching-mascots">🐶 🐱</div>
+                <h2>Level 3: Match the words! ⭐</h2>
+                <p>Click a word on the left, then click its correct translation on the right. Match all the pairs!</p>
+                <div class="matching-progress" id="matching-progress">Pairs matched: 0 / 10</div>
+                <div class="matching-connector" id="matching-connector">Choose a word and its translation ↔</div>
+                <div class="matching-columns">
+                    <div class="matching-list" id="matching-words"></div>
+                    <div class="matching-list" id="matching-translations"></div>
+                </div>
+                <div class="matching-feedback" id="matching-feedback" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <div class="game-finale" id="game-finale" style="display:none">
+            <div class="game-finale-card">
+                <div class="finale-animals">🐶 💖 🐱</div>
+                <h2>You did it! You completed all 3 levels!</h2>
+                <p>Thank you for playing with us! You did an amazing job learning English.</p>
+                <p class="finale-goodbye">The puppy and the cat say: “Thanks for playing! Keep learning, keep smiling, and goodbye!” 👋</p>
+                <button class="btn btn-primary" onclick="finishGameAndReturn()">🏡 Back to Menu</button>
+            </div>
+        </div>
+
+        <!-- READY SCREEN OVERLAY -->
+        <div class="ready-screen" id="ready-screen" style="display: none;">
+            <div class="ready-card">
+                <h3 id="txt-ready-title">Get Ready!</h3>
+                <p id="txt-ready-sub">Read the word to complete:</p>
+                <div class="ready-word-display" id="ready-word-text">VARIABLE</div>
+                <div class="ready-timer" id="txt-ready-desc">Next round starts when you click Ready</div>
+                <button class="btn btn-primary" onclick="confirmReady()" id="txt-btn-ready" style="font-size: 18px; padding: 12px 32px;">👍 I'M READY!</button>
+            </div>
+        </div>
+
+        <!-- Power-ups Toolbar -->
+        <div class="powerups-bar">
+            <button class="powerup-btn" id="pw-double" onclick="activatePowerUp('double')">
+                ✨ 2x Points (<span id="count-double">0</span>)
+            </button>
+            <button class="powerup-btn" id="pw-slow" onclick="activatePowerUp('slow')">
+                ⏳ +Time (<span id="count-slow">0</span>)
+            </button>
+            <button class="powerup-btn" id="pw-aim" onclick="activatePowerUp('aim')">
+                🎯 +AI Precision (<span id="count-aim">0</span>)
+            </button>
+        </div>
+
+        <!-- LOGIN / REGISTRATION OVERLAY -->
+        <div class="overlay" id="overlay-auth">
+            <div class="overlay-title" id="txt-auth-title">Player Registration</div>
+            <div class="overlay-subtitle" id="txt-auth-sub">Enter your Username and Password to save your highscores and customizations.</div>
+            <form class="auth-form" onsubmit="handleAuth(event)">
+                <input type="text" id="auth-username" class="auth-input" placeholder="Username" required autocomplete="username">
+                <input type="password" id="auth-password" class="auth-input" placeholder="Password" required autocomplete="current-password">
+                <button type="submit" class="btn btn-primary" id="txt-btn-auth">🎮 Enter / Register</button>
+            </form>
+        </div>
+
+        <!-- MAIN MENU OVERLAY -->
+        <div class="overlay" id="overlay-main" style="display: none;">
+            <div class="overlay-title" id="txt-main-title">SYNTAX SNIPER AI</div>
+            <div class="overlay-subtitle" id="txt-main-sub">Select difficulty level and shoot letters in order to earn XP and level up!</div>
+            
+            <div class="diff-selector">
+                <div class="diff-btn selected" id="diff-easy" onclick="selectDifficulty('easy')">
+                    🟢 <span id="txt-diff-easy">Easy</span>
+                    <span class="lock-tag">Lvl 1+</span>
+                </div>
+                <div class="diff-btn locked" id="diff-medium" onclick="selectDifficulty('medium')">
+                    🟡 <span id="txt-diff-med">Medium</span>
+                    <span class="lock-tag" id="lock-med-tag">Req Lvl 3</span>
+                </div>
+                <div class="diff-btn locked" id="diff-hard" onclick="selectDifficulty('hard')">
+                    🔴 <span id="txt-diff-hard">Hard</span>
+                    <span class="lock-tag" id="lock-hard-tag">Req Lvl 5</span>
+                </div>
+            </div>
+
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="startGame()" id="txt-btn-start">▶️ Play Now</button>
+                <button class="btn" onclick="openTutorialModal()" id="txt-btn-tutorial">❓ How to Play (Tutorial)</button>
+                <button class="btn" onclick="openShopModal()" id="txt-btn-shop">🛒 Virtual Shop</button>
+                <button class="btn" onclick="openConfigModal()" id="txt-btn-settings">⚙️ Settings</button>
+                <button class="btn" onclick="openLeaderboardModal()" id="txt-btn-rank">🏆 Leaderboard</button>
+            </div>
+        </div>
+
+        <!-- TUTORIAL MODAL OVERLAY -->
+        <div class="overlay" id="overlay-tutorial" style="display: none;">
+            <div class="overlay-title" id="txt-tut-title">📖 How to Play</div>
+            <div class="overlay-subtitle" id="txt-tut-sub">Master the game and level up your programmer rank!</div>
+            <div class="modal-body">
+                <div class="tutorial-step" id="tutorial-step-content"></div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" id="tut-prev-btn" onclick="changeTutorialStep(-1)">⬅️ Previous</button>
+                <button class="btn btn-primary" id="tut-next-btn" onclick="changeTutorialStep(1)">Next ➡️</button>
+                <button class="btn" onclick="showMainMenu()" id="txt-tut-close">Close Tutorial</button>
+            </div>
+        </div>
+
+        <!-- SHOP MODAL OVERLAY -->
+        <div class="overlay" id="overlay-shop" style="display: none;">
+            <div class="overlay-title" id="txt-shop-title">🛒 Virtual Shop</div>
+            <div class="overlay-subtitle" id="txt-shop-sub">Get Deluxe Packs that transform ALL game visual appearance or reload gear.</div>
+            
+            <div class="shop-tabs">
+                <button class="shop-tab-btn active" onclick="setShopTab('overhauls')" id="tab-btn-overhauls">👑 Deluxe Packs</button>
+                <button class="shop-tab-btn" onclick="setShopTab('themes')" id="tab-btn-themes">Themes</button>
+                <button class="shop-tab-btn" onclick="setShopTab('crosshairs')" id="tab-btn-crosshairs">Crosshairs</button>
+                <button class="shop-tab-btn" onclick="setShopTab('powerups')" id="tab-btn-powerups">Power-ups</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="shop-grid" id="shop-grid-container"></div>
+            </div>
+            <button class="btn" onclick="showMainMenu()" id="txt-btn-shop-back">Back to Menu</button>
+        </div>
+
+        <!-- CONFIGURATION MODAL OVERLAY -->
+        <div class="overlay" id="overlay-config" style="display: none;">
+            <div class="overlay-title" id="txt-cfg-title">Settings</div>
+            <div class="overlay-subtitle" id="txt-cfg-sub">Customize your language, language syntax and game settings.</div>
+            <div class="modal-body">
+                <div class="config-row" style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border-color);">
+                    <span id="txt-cfg-lang">Game Language:</span>
+                    <select id="select-lang" onchange="changeLanguage(this.value)" style="background:var(--card-bg); color:var(--text-bright); border:1px solid var(--border-color); padding:6px; border-radius:6px;">
+                        <option value="en">English</option>
+                        
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="ja">日本語 (Japanese)</option>
+                        <option value="ru">Русский (Russian)</option>
+                    </select>
+                </div>
+                <div class="config-row" style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
+                    <span>Target Tech Stack:</span>
+                    <select id="select-stack" onchange="changeTechStack(this.value)" style="background:var(--card-bg); color:var(--text-bright); border:1px solid var(--border-color); padding:6px; border-radius:6px;">
+                        <option value="general">General CS</option>
+                        <option value="javascript">JavaScript / Web</option>
+                        <option value="python">Python</option>
+                        <option value="cpp">C++ / Low-Level</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" onclick="showMainMenu()" id="txt-btn-back">Back to Menu</button>
+        </div>
+
+        <!-- LEADERBOARD MODAL -->
+        <div class="overlay" id="overlay-leaderboard" style="display: none;">
+            <div class="overlay-title" id="txt-rank-title">Global Leaderboard</div>
+            <div class="overlay-subtitle" id="txt-rank-sub">Top recorded scores. You can beat them!</div>
+            <div class="modal-body">
+                <table style="width:100%; border-collapse:collapse; text-align:left;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color); color:#8b949e;">
+                            <th>Pos.</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                            <th>Accuracy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-rows"></tbody>
+                </table>
+            </div>
+            <button class="btn" onclick="showMainMenu()" id="txt-btn-rank-back">Back to Menu</button>
+        </div>
+
+        <!-- GAME OVER MODAL -->
+        <div class="overlay" id="overlay-gameover" style="display: none;">
+            <div class="overlay-title" id="txt-go-title">GAME OVER!</div>
+            <div class="overlay-subtitle" id="gameover-stats">You ran out of lives.</div>
+            <div class="modal-body" id="gameover-report" style="margin-bottom:12px; font-size:12px; line-height:1.6;"></div>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="startGame()" id="txt-btn-retry">🔄 Retry</button>
+                <button class="btn" onclick="showMainMenu()" id="txt-btn-menu">📋 Main Menu</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- AI Status Footer -->
+    <div class="ai-status-bar">
+        <div>Neural Network: <span id="nn-status">Loading Neataptic Perceptron...</span></div>
+        <div>Last Shot: <span id="last-shot-info">N/A</span></div>
+    </div>
+
+</div>
+
+<script>
+    // --- 1. WEB AUDIO API SOUND SYSTEM ---
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) audioCtx = new AudioContext();
+    }
+
+    function playSound(type) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        if (type === 'shoot') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(440, now);
+            osc.frequency.exponentialRampToValueAtTime(110, now + 0.12);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.12);
+        } else if (type === 'hit') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(587.33, now); // D5
+            osc.frequency.setValueAtTime(880, now + 0.08); // A5
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.2);
+        } else if (type === 'error') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.setValueAtTime(100, now + 0.1);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.25);
+        }
+    }
+
+    // --- 2. PROGRAMMING DATASETS & SYNTAX STACKS ---
+    let currentTechStack = "general";
+
+    const STACK_DICTIONARIES = {
+        general: {
+            easy: ["LOOP", "CLASS", "ARRAY", "BOOL", "CODE", "DATA", "FILE", "BYTE", "VOID", "NODE"],
+            medium: ["VARIABLE", "FUNCTION", "POINTER", "SYNTAX", "OBJECT", "LIBRARY", "MODULE", "STRING"],
+            hard: ["ALGORITHM", "RECURSION", "COMPILER", "INTERFACE", "PARAMETER", "STATEMENT", "POLYMORPHISM"]
+        },
+        javascript: {
+            easy: ["FETCH", "AWAIT", "ASYNC", "CONST", "ARRAY", "EVENT", "PROMISE"],
+            medium: ["CLOSURE", "PROTOTYPE", "CALLBACK", "MUTATION", "COMPONET", "LISTEN"],
+            hard: ["DESTRUCTURE", "EVENTLOOP", "TYPESCRIPT", "MIDDLEWARE", "WEBSOCKET"]
+        },
+        python: {
+            easy: ["TUPLE", "LAMBDA", "LIST", "DICT", "YIELD", "SLICE", "DECORATOR"],
+            medium: ["GENERATOR", "INHERIT", "DATACLASS", "VIRTUALENV", "ITERATOR"],
+            hard: ["COMPREHENSION", "METACLASS", "MULTITHREAD", "ASYNCHRONOUS"]
+        },
+        cpp: {
+            easy: ["VECTOR", "POINTER", "STRUCT", "MALLOC", "HEADER", "SIZEOF"],
+            medium: ["TEMPLATE", "VIRTUAL", "DESTRUCTOR", "NAMESPACE", "REFERENCE"],
+            hard: ["SMARTPOINTER", "TEMPLATECLASS", "POLYMORPHISM", "MEMORYLEAK"]
+        }
+    };
+
+    const BUG_BUBBLES = ["BUG", "NULL", "SEGFAULT", ";", "ERR", "SYNTAX", "UNDEFINED"];
+
+    const ALPHABETS = {
+        en: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        es: "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
+        ar: "أبتثجحخدذرزسشصضطظعغفقكلمنهوي",
+        ja: "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
+        ru: "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+    };
+
+    const I18N = {
+        en: {
+            bannerTitle: "SYNTAX SNIPER AI",
+            bannerSub: "Cyber Precision & NEAT Neural Engine",
+            btnConfig: "Settings",
+            btnShopNav: "Shop",
+            btnTutNav: "Tutorial",
+            livesLabel: "Lives:",
+            lblScore: "Score",
+            lblStreak: "Streak",
+            lblAcc: "Accuracy",
+            lblMult: "NEAT Mult.",
+            mainTitle: "SYNTAX SNIPER AI",
+            mainSub: "Select difficulty level and shoot letters in order to earn XP and level up!",
+            diffEasy: "Easy",
+            diffMed: "Medium",
+            diffHard: "Hard",
+            btnStart: "▶️ Play Now",
+            btnTutorial: "❓ How to Play (Tutorial)",
+            btnShop: "🛒 Virtual Shop",
+            btnSettings: "⚙️ Settings",
+            btnRank: "🏆 Leaderboard",
+            cfgTitle: "Settings",
+            cfgSub: "Customize your language, language syntax and game settings.",
+            cfgLang: "Game Language:",
+            btnBack: "Back to Menu",
+            shopTitle: "🛒 Virtual Shop",
+            shopSub: "Get Deluxe Packs that transform ALL game visual appearance or reload gear.",
+            shopBack: "Back to Menu",
+            tabOverhauls: "👑 Deluxe Packs",
+            tabThemes: "Themes",
+            tabCrosshairs: "Crosshairs",
+            tabPowerups: "Power-ups",
+            rankTitle: "Global Leaderboard",
+            rankSub: "Top recorded scores. You can beat them!",
+            rankBack: "Back to Menu",
+            goTitle: "GAME OVER!",
+            btnRetry: "🔄 Retry",
+            btnMenu: "📋 Main Menu",
+            timeExpired: "TIME EXPIRED!",
+            targetPrefix: "WORD TO COMPLETE: ",
+            readyTitle: "Get Ready!",
+            readySub: "Read the word to complete:",
+            readyDesc: "Next round starts when you click Ready",
+            btnReady: "👍 I'M READY!",
+            authTitle: "Player Registration",
+            authSub: "Enter your Username and Password to save your highscores and customizations.",
+            btnAuth: "🎮 Enter / Register"
+        },
+        es: {
+            bannerTitle: "SYNTAX SNIPER AI",
+            bannerSub: "Cyber Precision & NEAT Neural Engine",
+            btnConfig: "Settings",
+            btnShopNav: "Shop",
+            btnTutNav: "Tutorial",
+            livesLabel: "Lives:",
+            lblScore: "Score",
+            lblStreak: "Streak",
+            lblAcc: "Accuracy",
+            lblMult: "Mult. NEAT",
+            mainTitle: "SYNTAX SNIPER AI",
+            mainSub: "Select the difficulty and shoot letters in order to earn XP and level up!",
+            diffEasy: "Easy",
+            diffMed: "Medium",
+            diffHard: "Hard",
+            btnStart: "▶️ Play Now",
+            btnTutorial: "❓ How to Play (Tutorial)",
+            btnShop: "🛒 Virtual Shop",
+            btnSettings: "⚙️ Settings",
+            btnRank: "🏆 Leaderboard",
+            cfgTitle: "Settings",
+            cfgSub: "Customize your language and game settings.",
+            cfgLang: "Game Language:",
+            btnBack: "Back to Menu",
+            shopTitle: "🛒 Virtual Shop",
+            shopSub: "Get Deluxe Packs that transform the entire visual appearance of the game.",
+            shopBack: "Back to Menu",
+            tabOverhauls: "👑 Deluxe Packs",
+            tabThemes: "Themes",
+            tabCrosshairs: "Crosshairs",
+            tabPowerups: "Power-ups",
+            rankTitle: "Leaderboard",
+            rankSub: "Top recorded scores. You can beat them!",
+            rankBack: "Back to Menu",
+            goTitle: "GAME OVER!",
+            btnRetry: "🔄 Try Again",
+            btnMenu: "📋 Main Menu",
+            timeExpired: "TIME EXPIRED!",
+            targetPrefix: "WORD TO COMPLETE: ",
+            readyTitle: "Get Ready!",
+            readySub: "Read the word to complete:",
+            readyDesc: "The next round starts when you click Ready",
+            btnReady: "👍 I'M READY!",
+            authTitle: "Player Registration",
+            authSub: "Enter your username and password to save your scores and customizations.",
+            btnAuth: "🎮 Enter / Register"
+        }
+    };
+
+    const TUTORIAL_STEPS = [
+        {
+            icon: "🎯",
+            title: "Objective",
+            text: "Read the target syntax word shown at the top. Shoot floating letter bubbles in the EXACT order to complete the word!"
+        },
+        {
+            icon: "🐛",
+            title: "Watch Out for Bugs!",
+            text: "Red Bug Bubbles (NULL, SEGFAULT, ;) floating on stage will penalty your lives or score if clicked!"
+        },
+        {
+            icon: "⏱️",
+            title: "Timer & Time Restore",
+            text: "Each word has a time bar. Every time you hit a CORRECT letter, you gain back +1.8s of lost time to keep playing without losing lives!"
+        },
+        {
+            icon: "⭐",
+            title: "Difficulties & XP Leveling",
+            text: "Earn XP with each completed word. Level 1 unlocks Easy, Level 3 unlocks Medium, and Level 5 unlocks Hard!"
+        },
+        {
+            icon: "🤖",
+            title: "NEAT AI Neural Visualizer",
+            text: "Watch the bottom-right neural network activation nodes light up in real-time as the NEAT AI evaluates your precision and speed!"
+        }
+    ];
+
+    const SHOP_ITEMS = {
+        overhauls: [
+            { id: 'ultra-gold', name: '👑 Golden King Pack (Full Overhaul)', cost: 500, desc: 'Pure gold borders, flat interface, golden fonts, and an elegant background.' },
+            { id: 'hyper-neon', name: '⚡ Pack Hyper Synth (Full Overhaul)', cost: 600, desc: 'High-definition flat cyber style without shadows.' }
+        ],
+        themes: [
+            { id: 'environmental', name: '🍃 Nature (Forest)', cost: 100, desc: 'Organic green theme.' },
+            { id: 'pixelated', name: '👾 Pixelated (8-Bit)', cost: 150, desc: 'Classic retro 8-bit style.' },
+            { id: 'retro', name: '🌆 Retro Synthwave', cost: 200, desc: '80s-style pink and orange neon.' },
+            { id: 'cyberpunk', name: '⚡ Cyberpunk Neon', cost: 250, desc: 'Futuristic cyan blue and magenta.' }
+        ],
+        crosshairs: [
+            { id: 'laser', name: '🔴 Laser Crosshair', cost: 80, desc: 'Tactical red laser dot.', style: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\'><circle cx=\'16\' cy=\'16\' r=\'10\' fill=\'none\' stroke=\'%23ff0055\' stroke-width=\'2\'/><circle cx=\'16\' cy=\'16\' r=\'3\' fill=\'%23ff0055\'/></svg>") 16 16, crosshair' },
+            { id: 'sniper', name: '🎯 Sniper Crosshair', cost: 120, desc: 'High-precision green reticle.', style: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\'><circle cx=\'16\' cy=\'16\' r=\'12\' fill=\'none\' stroke=\'%2300ff00\' stroke-width=\'1.5\'/><line x1=\'16\' y1=\'0\' x2=\'16\' y2=\'32\' stroke=\'%2300ff00\' stroke-width=\'1\'/><line x1=\'0\' y1=\'16\' x2=\'32\' y2=\'16\' stroke=\'%2300ff00\' stroke-width=\'1\'/></svg>") 16 16, crosshair' }
+        ],
+        powerups: [
+            { id: 'double', name: '✨ 2x Points (+1)', cost: 50, desc: 'Adds 1 double-points charge.' },
+            { id: 'slow', name: '⏳ +Time (+1)', cost: 40, desc: 'Adds 1 charge to restore seconds.' },
+            { id: 'aim', name: '🎯 +Accuracy IA (+1)', cost: 60, desc: 'Adds 1 NEAT bonus charge.' }
+        ]
+    };
+
+    let globalLeaderboard = [
+        { name: "DevSniper99", score: 14200, accuracy: "98%" },
+        { name: "NeatPro_Master", score: 11850, accuracy: "95%" },
+        { name: "CodeShooter", score: 9600, accuracy: "91%" }
+    ];
+
+    let currentUser = null;
+    let currentLang = 'en';
+    let currentTheme = 'default';
+    let activeCrosshair = 'default';
+    let currentShopTab = 'overhauls';
+    let currentDifficulty = 'easy';
+    let gameLevel = 1;
+    let completedLevel1Words = [];
+    let sentenceIndex = 0;
+    let sentenceAnswered = false;
+    let selectedMatchWord = null;
+    let selectedMatchTranslation = null;
+    let matchedPairs = new Set();
+    const LEVEL3_PAIRS = [
+        { word: 'LOOP', translation: 'Bucle' },
+        { word: 'CLASS', translation: 'Clase' },
+        { word: 'ARRAY', translation: 'Arreglo' },
+        { word: 'BOOL', translation: 'Booleano' },
+        { word: 'CODE', translation: 'Código' },
+        { word: 'DATA', translation: 'Datos' },
+        { word: 'FILE', translation: 'Archivo' },
+        { word: 'BYTE', translation: 'Byte (unidad de información)' },
+        { word: 'VOID', translation: 'Sin valor de retorno' },
+        { word: 'NODE', translation: 'Nodo' }
+    ];
+    const LEVEL2_SENTENCES = [
+        { sentence: 'A ___ repeats a set of instructions.', answer: 'LOOP', options: ['LOOP','FILE','BYTE','CLASS'] },
+        { sentence: 'A ___ groups data and behavior in programming.', answer: 'CLASS', options: ['BOOL','CLASS','NODE','VOID'] },
+        { sentence: 'An ___ stores a collection of items.', answer: 'ARRAY', options: ['DATA','ARRAY','CODE','FILE'] },
+        { sentence: 'A ___ value can be true or false.', answer: 'BOOL', options: ['BYTE','LOOP','BOOL','NODE'] },
+        { sentence: 'The instructions written by a programmer are called ___.', answer: 'CODE', options: ['CODE','CLASS','VOID','ARRAY'] },
+        { sentence: 'Information used by a program is called ___.', answer: 'DATA', options: ['FILE','DATA','LOOP','BYTE'] },
+        { sentence: 'A ___ can store information on a computer.', answer: 'FILE', options: ['NODE','BOOL','FILE','CODE'] },
+        { sentence: 'A ___ is a small unit of digital information.', answer: 'BYTE', options: ['BYTE','CLASS','DATA','VOID'] },
+        { sentence: 'In some languages, ___ means a function returns no value.', answer: 'VOID', options: ['ARRAY','VOID','FILE','BOOL'] },
+        { sentence: 'A ___ can represent a point in a network.', answer: 'NODE', options: ['NODE','CODE','LOOP','BYTE'] }
+    ];
+
+    let playerLevel = 1;
+    let playerXP = 0;
+    let xpForNextLevel = 100;
+
+    let unlockedThemes = ['default'];
+    let unlockedCrosshairs = ['default'];
+
+    let lives = 5;
+    let userCoins = 300;
+    let score = 0;
+    let streak = 0;
+    let totalShots = 0;
+    let totalAccuracySum = 0;
+    let roundTimes = [];
+    let fastestWord = { word: "-", time: 999 };
+
+    let currentWord = "";
+    let currentLetterIndex = 0;
+    let wordStartTime = 0;
+    let targetBubbles = [];
+    let gameActive = false;
+    let readyWaiting = false;
+    let lastTargetSpawnTime = 0;
+
+    let wordTimeLimit = 12.0;
+    let wordTimeRemaining = 12.0;
+    let timerInterval = null;
+
+    let tutorialStep = 0;
+
+    let powerupCounts = { double: 3, slow: 3, aim: 3 };
+    let activeEffects = { double: false, aimBoost: false };
+
+    // --- 3. LOCAL STORAGE PERSISTENCE ---
+    function saveGameData() {
+        const data = {
+            currentUser, playerLevel, playerXP, xpForNextLevel,
+            userCoins, unlockedThemes, unlockedCrosshairs, powerupCounts
+        };
+        localStorage.setItem('syntax_sniper_save', JSON.stringify(data));
+    }
+
+    function loadGameData() {
+        const saved = localStorage.getItem('syntax_sniper_save');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                if (data.currentUser) {
+                    currentUser = data.currentUser;
+                    document.getElementById('user-display').innerText = `👤 ${currentUser}`;
+                }
+                playerLevel = data.playerLevel || 1;
+                playerXP = data.playerXP || 0;
+                xpForNextLevel = data.xpForNextLevel || 100;
+                userCoins = data.userCoins || 300;
+                unlockedThemes = data.unlockedThemes || ['default'];
+                unlockedCrosshairs = data.unlockedCrosshairs || ['default'];
+                powerupCounts = data.powerupCounts || { double: 3, slow: 3, aim: 3 };
+            } catch (e) {
+                console.log("Save corrupted, reset default.");
+            }
+        }
+    }
+
+    function speakCurrentWord() {
+        if (!currentWord) return;
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(currentWord.toLowerCase());
+            const langMap = { es: 'es-ES', en: 'en-US', ar: 'ar-SA', ja: 'ja-JP', ru: 'ru-RU' };
+            utterance.lang = langMap[currentLang] || 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    function handleAuth(e) {
+        e.preventDefault();
+        const userVal = document.getElementById('auth-username').value.trim();
+        if (userVal) {
+            currentUser = userVal;
+            document.getElementById('user-display').innerText = `👤 ${currentUser}`;
+            saveGameData();
+            hideAllOverlays();
+            showMainMenu();
+        }
+    }
+
+    // --- 4. NEATAPTIC AI & LIVE NEURAL NETWORK VISUALIZER ---
+    let myNetwork;
+    let lastNetworkOutputs = [0, 0, 0, 0];
+
+    function initNeatapticAI() {
+        try {
+            myNetwork = new neataptic.Architect.Perceptron(2, 4, 1);
+            const trainingData = [
+                { input: [0.0, 0.1], output: [1.0] },
+                { input: [0.1, 0.2], output: [0.9] },
+                { input: [0.3, 0.4], output: [0.6] },
+                { input: [0.6, 0.6], output: [0.3] },
+                { input: [0.9, 0.9], output: [0.1] }
+            ];
+            myNetwork.train(trainingData, { log: false, iterations: 300, error: 0.01, rate: 0.1 });
+            document.getElementById("nn-status").innerText = "Perceptron Active (2-4-1)";
+            drawNeuralNetworkVisualizer([0.2, 0.5, 0.8, 0.3]);
+        } catch (e) {
+            document.getElementById("nn-status").innerText = "Standard Mode (Neataptic Failed)";
+        }
+    }
+
+    function evaluateShotMultiplier(distanceNormalized, timeNormalized) {
+        if (!myNetwork) return 1.0;
+        if (activeEffects.aimBoost) distanceNormalized *= 0.5;
+
+        // Dynamic adjustment based on streak
+        if (streak === 0) distanceNormalized = Math.max(0, distanceNormalized - 0.15);
+
+        const output = myNetwork.activate([
+            Math.min(1, Math.max(0, distanceNormalized)),
+            Math.min(1, Math.max(0, timeNormalized))
+        ]);
+
+        // Get hidden layer node activations for visualizer
+        const hiddenNodes = myNetwork.nodes.slice(2, 6).map(n => n.activation || Math.random());
+        drawNeuralNetworkVisualizer(hiddenNodes);
+
+        const multiplier = 0.5 + (output[0] * 2.5);
+        return parseFloat(multiplier.toFixed(2));
+    }
+
+    function drawNeuralNetworkVisualizer(activations) {
+        const canvas = document.getElementById('nn-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Layers: Input (2), Hidden (4), Output (1)
+        const layers = [
+            [{ x: 25, y: 30 }, { x: 25, y: 60 }],
+            [{ x: 80, y: 18 }, { x: 80, y: 38 }, { x: 80, y: 58 }, { x: 80, y: 78 }],
+            [{ x: 135, y: 45 }]
+        ];
+
+        // Draw connections
+        ctx.lineWidth = 1;
+        layers[0].forEach((n1, i) => {
+            layers[1].forEach((n2, j) => {
+                const act = activations[j] || 0.5;
+                ctx.strokeStyle = `rgba(88, 166, 255, ${0.2 + act * 0.8})`;
+                ctx.beginPath();
+                ctx.moveTo(n1.x, n1.y);
+                ctx.lineTo(n2.x, n2.y);
+                ctx.stroke();
+            });
+        });
+
+        layers[1].forEach((n1, j) => {
+            const act = activations[j] || 0.5;
+            ctx.strokeStyle = `rgba(63, 185, 80, ${0.2 + act * 0.8})`;
+            ctx.beginPath();
+            ctx.moveTo(n1.x, n1.y);
+            ctx.lineTo(layers[2][0].x, layers[2][0].y);
+            ctx.stroke();
+        });
+
+        // Draw nodes
+        layers.forEach((layer, lIdx) => {
+            layer.forEach((node, nIdx) => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+                if (lIdx === 0) ctx.fillStyle = '#58a6ff';
+                else if (lIdx === 1) ctx.fillStyle = `rgba(63, 185, 80, ${0.3 + (activations[nIdx] || 0.5) * 0.7})`;
+                else ctx.fillStyle = '#d29922';
+                ctx.fill();
+            });
+        });
+    }
+
+    // --- 5. VISUAL PARTICLES EFFECT ---
+    function createParticleExplosion(x, y, color) {
+        const stage = document.getElementById('game-stage');
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.backgroundColor = color;
+            p.style.left = `${x}px`;
+            p.style.top = `${y}px`;
+
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 30 + Math.random() * 50;
+            p.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
+            p.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
+
+            stage.appendChild(p);
+            setTimeout(() => p.remove(), 600);
+        }
+    }
+
+    // --- 6. EXP & DIFFICULTY SYSTEM ---
+    function addXP(amount) {
+        playerXP += amount;
+        if (playerXP >= xpForNextLevel) {
+            playerXP -= xpForNextLevel;
+            playerLevel++;
+            xpForNextLevel = Math.round(xpForNextLevel * 1.5);
+            showCenterEffect(`LEVEL UP! LVL ${playerLevel} ⭐`, "var(--accent-yellow)");
+        }
+        saveGameData();
+        updateLevelUI();
+        updateDifficultyButtons();
+    }
+
+    function updateLevelUI() {
+        document.getElementById('level-display').innerText = `⭐ Lvl ${playerLevel} (${playerXP}/${xpForNextLevel} XP)`;
+        const pct = (playerXP / xpForNextLevel) * 100;
+        document.getElementById('xp-fill').style.width = `${pct}%`;
+    }
+
+    function updateDifficultyButtons() {
+        const medBtn = document.getElementById('diff-medium');
+        const hardBtn = document.getElementById('diff-hard');
+
+        if (playerLevel >= 3) {
+            medBtn.classList.remove('locked');
+            document.getElementById('lock-med-tag').innerText = "Unlocked!";
+        } else {
+            medBtn.classList.add('locked');
+            document.getElementById('lock-med-tag').innerText = "Req Lvl 3";
+        }
+
+        if (playerLevel >= 5) {
+            hardBtn.classList.remove('locked');
+            document.getElementById('lock-hard-tag').innerText = "Unlocked!";
+        } else {
+            hardBtn.classList.add('locked');
+            document.getElementById('lock-hard-tag').innerText = "Req Lvl 5";
+        }
+    }
+
+    function selectDifficulty(diff) {
+        if (diff === 'medium' && playerLevel < 3) {
+            alert("Reach Level 3 to unlock Medium difficulty!");
+            return;
+        }
+        if (diff === 'hard' && playerLevel < 5) {
+            alert("Reach Level 5 to unlock Hard difficulty!");
+            return;
+        }
+
+        currentDifficulty = diff;
+        document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('selected'));
+        document.getElementById(`diff-${diff}`).classList.add('selected');
+    }
+
+    function changeTechStack(stack) {
+        currentTechStack = stack;
+    }
+
+    function openTutorialModal() {
+        hideAllOverlays();
+        tutorialStep = 0;
+        renderTutorialStep();
+        document.getElementById('overlay-tutorial').style.display = 'flex';
+    }
+
+    function renderTutorialStep() {
+        const step = TUTORIAL_STEPS[tutorialStep];
+        const container = document.getElementById('tutorial-step-content');
+        container.innerHTML = `
+            <div class="tutorial-icon">${step.icon}</div>
+            <h3 style="color:var(--accent-yellow); font-size:18px;">${step.title}</h3>
+            <p style="font-size:13px; color:var(--text-color); line-height:1.5; max-width:400px;">${step.text}</p>
+        `;
+
+        document.getElementById('tut-prev-btn').style.display = tutorialStep === 0 ? 'none' : 'inline-block';
+        document.getElementById('tut-next-btn').style.display = tutorialStep === TUTORIAL_STEPS.length - 1 ? 'none' : 'inline-block';
+    }
+
+    function changeTutorialStep(dir) {
+        tutorialStep += dir;
+        if (tutorialStep < 0) tutorialStep = 0;
+        if (tutorialStep >= TUTORIAL_STEPS.length) tutorialStep = TUTORIAL_STEPS.length - 1;
+        renderTutorialStep();
+    }
+
+    function toggleFullscreen() {
+        const btn = document.getElementById('fullscreen-btn');
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => console.log(err));
+            btn.innerText = "🔳 Exit Fullscreen";
+        } else {
+            document.exitFullscreen();
+            btn.innerText = "🔲 Fullscreen";
+        }
+    }
+
+    function openShopModal() {
+        hideAllOverlays();
+        renderShopGrid();
+        document.getElementById('overlay-shop').style.display = 'flex';
+    }
+
+    function setShopTab(tab) {
+        currentShopTab = tab;
+        document.querySelectorAll('.shop-tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`tab-btn-${tab}`).classList.add('active');
+        renderShopGrid();
+    }
+
+    function renderShopGrid() {
+        const container = document.getElementById('shop-grid-container');
+        container.innerHTML = '';
+        const items = SHOP_ITEMS[currentShopTab];
+
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = `shop-card ${currentShopTab === 'overhauls' ? 'ultimate-pack' : ''}`;
+            let btnAction = '';
+
+            if (currentShopTab === 'overhauls' || currentShopTab === 'themes') {
+                const isUnlocked = unlockedThemes.includes(item.id);
+                const isEquipped = currentTheme === item.id;
+
+                if (isEquipped) {
+                    btnAction = `<button class="btn btn-sm" disabled style="background:#238636; color:#fff;">Equipped</button>`;
+                } else if (isUnlocked) {
+                    btnAction = `<button class="btn btn-sm" onclick="equipTheme('${item.id}')">Equip</button>`;
+                } else {
+                    btnAction = `<button class="btn btn-sm btn-primary" onclick="buyTheme('${item.id}', ${item.cost})">Buy (${item.cost} 🪙)</button>`;
+                }
+            } else if (currentShopTab === 'crosshairs') {
+                const isUnlocked = unlockedCrosshairs.includes(item.id);
+                const isEquipped = activeCrosshair === item.id;
+
+                if (isEquipped) {
+                    btnAction = `<button class="btn btn-sm" disabled style="background:#238636; color:#fff;">Equipped</button>`;
+                } else if (isUnlocked) {
+                    btnAction = `<button class="btn btn-sm" onclick="equipCrosshair('${item.id}')">Equip</button>`;
+                } else {
+                    btnAction = `<button class="btn btn-sm btn-primary" onclick="buyCrosshair('${item.id}', ${item.cost})">Buy (${item.cost} 🪙)</button>`;
+                }
+            } else if (currentShopTab === 'powerups') {
+                btnAction = `<button class="btn btn-sm btn-primary" onclick="buyPowerup('${item.id}', ${item.cost})">Buy (${item.cost} 🪙)</button>`;
+            }
+
+            card.innerHTML = `<div><h4>${item.name}</h4><p>${item.desc}</p></div><div>${btnAction}</div>`;
+            container.appendChild(card);
+        });
+    }
+
+    function buyTheme(id, cost) {
+        if (userCoins >= cost) {
+            userCoins -= cost; unlockedThemes.push(id); equipTheme(id); saveGameData(); updateLivesUI(); renderShopGrid();
+        } else alert("Not enough coins!");
+    }
+
+    function equipTheme(id) {
+        currentTheme = id;
+        document.body.className = id === 'default' ? 'theme-default' : `theme-${id}`;
+        saveGameData();
+        renderShopGrid();
+    }
+
+    function buyCrosshair(id, cost) {
+        if (userCoins >= cost) {
+            userCoins -= cost; unlockedCrosshairs.push(id); equipCrosshair(id); saveGameData(); updateLivesUI(); renderShopGrid();
+        } else alert("Not enough coins!");
+    }
+
+    function equipCrosshair(id) {
+        activeCrosshair = id;
+        const item = SHOP_ITEMS.crosshairs.find(c => c.id === id);
+        const stage = document.getElementById('game-stage');
+        stage.style.setProperty('--crosshair-style', (id === 'default' || !item) ? 'crosshair' : item.style);
+        saveGameData();
+        renderShopGrid();
+    }
+
+    function buyPowerup(id, cost) {
+        if (userCoins >= cost) {
+            userCoins -= cost; powerupCounts[id]++; saveGameData(); updatePowerupsUI(); updateLivesUI(); renderShopGrid();
+        } else alert("Not enough coins!");
+    }
+
+    function updatePowerupsUI() {
+        document.getElementById('count-double').innerText = powerupCounts.double;
+        document.getElementById('count-slow').innerText = powerupCounts.slow;
+        document.getElementById('count-aim').innerText = powerupCounts.aim;
+    }
+
+    function changeLanguage(lang) {
+        currentLang = lang;
+        const txt = I18N[lang] || I18N['en'];
+
+        document.getElementById('txt-banner-title').innerText = txt.bannerTitle;
+        document.getElementById('txt-banner-sub').innerText = txt.bannerSub;
+        document.getElementById('txt-btn-config').innerText = txt.btnConfig;
+        document.getElementById('txt-btn-shop-nav').innerText = txt.btnShopNav;
+        document.getElementById('txt-btn-tut-nav').innerText = txt.btnTutNav;
+        document.getElementById('txt-lives-label').innerText = txt.livesLabel;
+        document.getElementById('txt-lbl-score').innerText = txt.lblScore;
+        document.getElementById('txt-lbl-streak').innerText = txt.lblStreak;
+        document.getElementById('txt-lbl-acc').innerText = txt.lblAcc;
+        document.getElementById('txt-lbl-mult').innerText = txt.lblMult;
+
+        document.getElementById('txt-main-title').innerText = txt.mainTitle;
+        document.getElementById('txt-main-sub').innerText = txt.mainSub;
+        document.getElementById('txt-diff-easy').innerText = txt.diffEasy;
+        document.getElementById('txt-diff-med').innerText = txt.diffMed;
+        document.getElementById('txt-diff-hard').innerText = txt.diffHard;
+        document.getElementById('txt-btn-start').innerText = txt.btnStart;
+        document.getElementById('txt-btn-tutorial').innerText = txt.btnTutorial;
+        document.getElementById('txt-btn-shop').innerText = txt.btnShop;
+        document.getElementById('txt-btn-settings').innerText = txt.btnSettings;
+        document.getElementById('txt-btn-rank').innerText = txt.btnRank;
+
+        document.getElementById('txt-shop-title').innerText = txt.shopTitle;
+        document.getElementById('txt-shop-sub').innerText = txt.shopSub;
+        document.getElementById('txt-btn-shop-back').innerText = txt.shopBack;
+
+        document.getElementById('txt-cfg-title').innerText = txt.cfgTitle;
+        document.getElementById('txt-cfg-sub').innerText = txt.cfgSub;
+        document.getElementById('txt-cfg-lang').innerText = txt.cfgLang;
+        document.getElementById('txt-btn-back').innerText = txt.btnBack;
+
+        document.getElementById('txt-rank-title').innerText = txt.rankTitle;
+        document.getElementById('txt-rank-sub').innerText = txt.rankSub;
+        document.getElementById('txt-rank-back').innerText = txt.rankBack;
+
+        document.getElementById('txt-go-title').innerText = txt.goTitle;
+        document.getElementById('txt-btn-retry').innerText = txt.btnRetry;
+        document.getElementById('txt-btn-menu').innerText = txt.btnMenu;
+
+        document.getElementById('txt-ready-title').innerText = txt.readyTitle;
+        document.getElementById('txt-ready-sub').innerText = txt.readySub;
+        document.getElementById('txt-ready-desc').innerText = txt.readyDesc;
+        document.getElementById('txt-btn-ready').innerText = txt.btnReady;
+
+        document.getElementById('txt-auth-title').innerText = txt.authTitle;
+        document.getElementById('txt-auth-sub').innerText = txt.authSub;
+        document.getElementById('txt-btn-auth').innerText = txt.btnAuth;
+
+        if (currentWord) {
+            document.getElementById('full-word-target').innerText = `${txt.targetPrefix}${currentWord}`;
+        }
+    }
+
+    function hideAllOverlays() {
+        document.querySelectorAll('.overlay').forEach(el => el.style.display = 'none');
+    }
+
+    function showMainMenu() {
+        gameActive = false;
+        clearInterval(timerInterval);
+        clearBubbles();
+        hideAllOverlays();
+        document.getElementById('ready-screen').style.display = 'none';
+        document.getElementById('overlay-main').style.display = 'flex';
+        updateDifficultyButtons();
+        updateLevelUI();
+    }
+
+    function openConfigModal() {
+        hideAllOverlays();
+        document.getElementById('overlay-config').style.display = 'flex';
+    }
+
+    function openLeaderboardModal() {
+        hideAllOverlays();
+        renderLeaderboard();
+        document.getElementById('overlay-leaderboard').style.display = 'flex';
+    }
+
+    function renderLeaderboard() {
+        const tbody = document.getElementById('leaderboard-rows');
+        tbody.innerHTML = '';
+        globalLeaderboard.sort((a, b) => b.score - a.score);
+
+        globalLeaderboard.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = "1px solid var(--border-color)";
+            if (currentUser && item.name === currentUser) {
+                tr.style.color = "var(--accent-yellow)";
+                tr.style.fontWeight = "bold";
+            }
+            tr.innerHTML = `<td style="padding:8px;">#${index + 1}</td><td>${item.name}</td><td>${item.score} pts</td><td>${item.accuracy}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function checkAndUpdateLeaderboard() {
+        const playerName = currentUser || "Guest";
+        const avgAcc = totalShots > 0 ? `${Math.round((totalAccuracySum / totalShots) * 100)}%` : "100%";
+        const existingPlayer = globalLeaderboard.find(p => p.name === playerName);
+        if (existingPlayer) {
+            if (score > existingPlayer.score) {
+                existingPlayer.score = score; existingPlayer.accuracy = avgAcc;
+            }
+        } else {
+            globalLeaderboard.push({ name: playerName, score: score, accuracy: avgAcc });
+        }
+    }
+
+    function startGame() {
+        initAudio();
+        hideAllOverlays();
+        lives = 5;
+        gameLevel = 1;
+        completedLevel1Words = [];
+        sentenceIndex = 0;
+        selectedMatchWord = null;
+        selectedMatchTranslation = null;
+        matchedPairs = new Set();
+        document.getElementById('sentence-level-panel').style.display = 'none';
+        document.getElementById('matching-level-panel').style.display = 'none';
+        document.getElementById('game-finale').style.display = 'none';
+        score = 0;
+        streak = 0;
+        totalShots = 0;
+        totalAccuracySum = 0;
+        roundTimes = [];
+        fastestWord = { word: "-", time: 999 };
+        updateDashboard(1.0);
+        updateLivesUI();
+        updatePowerupsUI();
+        gameActive = true;
+        document.getElementById('puppy-guide').style.display = 'flex';
+        speakPuppyGuide();
+    }
+
+    function speakPuppyGuide() {
+        if (!("speechSynthesis" in window)) return;
+        window.speechSynthesis.cancel();
+        const puppySpeech = new SpeechSynthesisUtterance(
+            "Hello! I will be your guide! Look at the word above and click the bubbles with its letters in the correct order. Avoid the red bubbles and keep an eye on the timer. Protect your hearts! If you get stuck, take a breath and keep trying. You can do it!"
+        );
+        puppySpeech.lang = "en-US";
+        puppySpeech.rate = 0.92;
+        puppySpeech.pitch = 1.15;
+        window.speechSynthesis.speak(puppySpeech);
+    }
+
+    function continueAfterPuppy() {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        document.getElementById('puppy-guide').style.display = 'none';
+        nextWord();
+    }
+
+    function updateLivesUI() {
+        document.getElementById('lives-val').innerText = '❤️'.repeat(Math.max(0, lives));
+        document.getElementById('coins-val').innerText = userCoins;
+    }
+
+    function nextWord() {
+        if (!gameActive) return;
+
+        if (gameLevel === 2) { showSentenceLevel(); return; }
+        const langDict = STACK_DICTIONARIES[currentTechStack] || STACK_DICTIONARIES['general'];
+        const wordsList = langDict[currentDifficulty] || langDict['easy'];
+        const remainingWords = wordsList.filter(word => !completedLevel1Words.includes(word));
+        if (remainingWords.length === 0) { gameLevel = 2; showSentenceLevel(); return; }
+        currentWord = remainingWords[Math.floor(Math.random() * remainingWords.length)];
+        currentLetterIndex = 0;
+        wordStartTime = Date.now();
+
+        const txt = I18N[currentLang] || I18N['en'];
+        document.getElementById('full-word-target').innerText = `${txt.targetPrefix}${currentWord}`;
+        
+        speakCurrentWord();
+
+        readyWaiting = true;
+        clearInterval(timerInterval);
+        clearBubbles();
+
+        document.getElementById('ready-word-text').innerText = currentWord;
+        document.getElementById('ready-screen').style.display = 'flex';
+    }
+
+    function confirmReady() {
+        document.getElementById('ready-screen').style.display = 'none';
+        readyWaiting = false;
+        renderWordSlots();
+        spawnBubbles();
+        resetWordTimer();
+        gameLoop();
+    }
+
+    function resetWordTimer() {
+        clearInterval(timerInterval);
+        
+        if (currentDifficulty === 'easy') {
+            wordTimeLimit = Math.max(11.0, 20.0 - (currentWord.length * 0.25));
+        } else if (currentDifficulty === 'medium') {
+            wordTimeLimit = Math.max(8.0, 15.0 - (currentWord.length * 0.25));
+        } else if (currentDifficulty === 'hard') {
+            wordTimeLimit = Math.max(6.0, 11.0 - (currentWord.length * 0.25));
+        }
+
+        wordTimeRemaining = wordTimeLimit;
+
+        timerInterval = setInterval(() => {
+            if (!gameActive || readyWaiting) return;
+
+            wordTimeRemaining -= 0.1;
+            if (wordTimeRemaining <= 0) {
+                wordTimeRemaining = 0;
+                handleTimeExpired();
+            }
+
+            document.getElementById('timer-val').innerText = `${wordTimeRemaining.toFixed(1)}s`;
+            const fillPct = (wordTimeRemaining / wordTimeLimit) * 100;
+            const fillBar = document.getElementById('timer-fill');
+            fillBar.style.width = `${fillPct}%`;
+            fillBar.style.backgroundColor = fillPct < 30 ? 'var(--accent-red)' : 'var(--accent-yellow)';
+        }, 120);
+    }
+
+    function handleTimeExpired() {
+        clearInterval(timerInterval);
+        playSound('error');
+        lives--;
+        streak = 0;
+        updateLivesUI();
+        updateDashboard(1.0);
+
+        const txt = I18N[currentLang] || I18N['en'];
+        showCenterEffect(txt.timeExpired, "var(--accent-red)");
+
+        if (lives <= 0) {
+            triggerGameOver();
+        } else {
+            setTimeout(() => nextWord(), 800);
+        }
+    }
+
+    function triggerGameOver() {
+        gameActive = false;
+        clearInterval(timerInterval);
+        clearBubbles();
+        playSound('error');
+        checkAndUpdateLeaderboard();
+        saveGameData();
+        hideAllOverlays();
+
+        const avgAcc = totalShots > 0 ? Math.round((totalAccuracySum / totalShots) * 100) : 100;
+        const avgReaction = roundTimes.length > 0 ? (roundTimes.reduce((a,b)=>a+b,0) / roundTimes.length).toFixed(2) : "N/A";
+
+        document.getElementById('gameover-stats').innerText = `Final Score: ${score} pts. Level: ${playerLevel}`;
+        document.getElementById('gameover-report').innerHTML = `
+            <strong>📊 Match Analytical Report:</strong><br>
+            🎯 Final Accuracy: <span style="color:var(--accent-yellow);">${avgAcc}%</span><br>
+            ⚡ Avg Reaction Speed: <span style="color:var(--accent-blue);">${avgReaction}s</span><br>
+            🚀 Fastest Word: <span style="color:var(--accent-green);">${fastestWord.word} (${fastestWord.time < 90 ? fastestWord.time.toFixed(2) + 's' : 'N/A'})</span>
+        `;
+        document.getElementById('overlay-gameover').style.display = 'flex';
+    }
+
+    function renderWordSlots() {
+        const container = document.getElementById("word-container");
+        container.innerHTML = "";
+        for (let i = 0; i < currentWord.length; i++) {
+            const slot = document.createElement("div");
+            slot.className = "letter-slot";
+            slot.setAttribute("data-char", currentWord[i]);
+
+            if (i < currentLetterIndex) {
+                slot.innerText = currentWord[i];
+                slot.classList.add("filled");
+            } else if (i === currentLetterIndex) {
+                slot.innerText = "_";
+                slot.classList.add("current-target");
+            } else {
+                slot.innerText = "_";
+            }
+            container.appendChild(slot);
+        }
+    }
+
+    function clearBubbles() {
+        targetBubbles.forEach(b => b.element.remove());
+        targetBubbles = [];
+    }
+
+    function spawnBubbles() {
+        clearBubbles();
+        const targetChar = currentWord[currentLetterIndex];
+        const alphabet = ALPHABETS[currentLang] || ALPHABETS['en'];
+
+        let letters = [targetChar];
+        while (letters.length < 5) {
+            let randomChar = alphabet[Math.floor(Math.random() * alphabet.length)];
+            if (!letters.includes(randomChar)) letters.push(randomChar);
+        }
+
+        letters.sort(() => Math.random() - 0.5);
+        const stage = document.getElementById("game-stage");
+
+        const speedMult = currentDifficulty === 'easy' ? 1.8 : (currentDifficulty === 'medium' ? 2.8 : 4.0);
+
+        // Standard Target Bubbles
+        letters.forEach(char => {
+            const bubble = document.createElement("div");
+            bubble.className = "target-bubble";
+            bubble.innerText = char;
+
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            const radius = 30;
+            const posX = radius + Math.random() * Math.max(1, stageWidth - radius * 2);
+            const posY = radius + Math.random() * Math.max(1, stageHeight - radius * 2);
+            
+            const speedX = (Math.random() - 0.5) * speedMult;
+            const speedY = (Math.random() - 0.5) * speedMult;
+
+            bubble.style.left = `${posX}px`;
+            bubble.style.top = `${posY}px`;
+
+            stage.appendChild(bubble);
+
+            targetBubbles.push({
+                element: bubble,
+                char: char,
+                isBug: false,
+                x: posX,
+                y: posY,
+                vx: speedX,
+                vy: speedY,
+                radius: radius
+            });
+        });
+
+        // Chance to spawn a Red Bug Bubble Trap
+        if (Math.random() < 0.45) {
+            const bugChar = BUG_BUBBLES[Math.floor(Math.random() * BUG_BUBBLES.length)];
+            const bugBubble = document.createElement("div");
+            bugBubble.className = "target-bubble bug-bubble";
+            bugBubble.innerText = bugChar;
+
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            const radius = 30;
+            const posX = radius + Math.random() * Math.max(1, stageWidth - radius * 2);
+            const posY = radius + Math.random() * Math.max(1, stageHeight - radius * 2);
+
+            bugBubble.style.left = `${posX}px`;
+            bugBubble.style.top = `${posY}px`;
+            stage.appendChild(bugBubble);
+
+            targetBubbles.push({
+                element: bugBubble,
+                char: bugChar,
+                isBug: true,
+                x: posX,
+                y: posY,
+                vx: (Math.random() - 0.5) * (speedMult + 1),
+                vy: (Math.random() - 0.5) * (speedMult + 1),
+                radius: radius
+            });
+        }
+
+        lastTargetSpawnTime = Date.now();
+    }
+
+    function gameLoop() {
+        if (!gameActive || readyWaiting) return;
+
+        targetBubbles.forEach(b => {
+            b.x += b.vx;
+            b.y += b.vy;
+
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            if (b.x - b.radius <= 0) { b.x = b.radius; b.vx = Math.abs(b.vx); }
+            if (b.x + b.radius >= stageWidth) { b.x = stageWidth - b.radius; b.vx = -Math.abs(b.vx); }
+            if (b.y - b.radius <= 0) { b.y = b.radius; b.vy = Math.abs(b.vy); }
+            if (b.y + b.radius >= stageHeight) { b.y = stageHeight - b.radius; b.vy = -Math.abs(b.vy); }
+
+            b.element.style.left = `${b.x}px`;
+            b.element.style.top = `${b.y}px`;
+        });
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    const stage = document.getElementById("game-stage");
+
+    stage.addEventListener("click", function (e) {
+        if (!gameActive || readyWaiting) return;
+        if (e.target.closest('.powerups-bar') || e.target.closest('.ready-screen')) return;
+
+        playSound('shoot');
+
+        const rect = stage.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+
+        let hit = false;
+
+        for (let i = targetBubbles.length - 1; i >= 0; i--) {
+            const b = targetBubbles[i];
+            const dx = clickX - b.x;
+            const dy = clickY - b.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance <= b.radius) {
+                hit = true;
+                handleShoot(b, distance, clickX, clickY);
+                break;
+            }
+        }
+
+        if (!hit) {
+            streak = 0;
+            updateDashboard(1.0);
+            showHitEffect(clickX, clickY, "MISSED!", "var(--accent-red)");
+        }
+    });
+
+    function handleShoot(bubble, distance, clickX, clickY) {
+        const timeTakenSec = (Date.now() - lastTargetSpawnTime) / 1000;
+        roundTimes.push(timeTakenSec);
+
+        if (bubble.isBug) {
+            playSound('error');
+            createParticleExplosion(clickX, clickY, "var(--accent-red)");
+            lives--;
+            streak = 0;
+            score = Math.max(0, score - 50);
+            showHitEffect(clickX, clickY, "BUG TRAP HIT! 🐛 (-1 ❤️)", "var(--accent-red)");
+            updateLivesUI();
+            updateDashboard(1.0);
+            if (lives <= 0) triggerGameOver();
+            else spawnBubbles();
+            return;
+        }
+
+        const targetChar = currentWord[currentLetterIndex];
+        const accuracyRatio = Math.max(0, (bubble.radius - distance) / bubble.radius);
+        const distNormalized = 1 - accuracyRatio;
+        const timeNormalized = Math.min(1, timeTakenSec / 3.0);
+
+        const aiMultiplier = evaluateShotMultiplier(distNormalized, timeNormalized);
+
+        totalShots++;
+        totalAccuracySum += accuracyRatio;
+
+        if (bubble.char === targetChar) {
+            playSound('hit');
+            createParticleExplosion(clickX, clickY, "var(--accent-green)");
+            streak++;
+            const diffMult = currentDifficulty === 'easy' ? 1 : (currentDifficulty === 'medium' ? 1.5 : 2.2);
+            const basePoints = 100 * diffMult;
+            const doubleMult = activeEffects.double ? 2 : 1;
+            const pointsEarned = Math.round(basePoints * accuracyRatio * aiMultiplier * streak * doubleMult);
+            
+            score += pointsEarned;
+            userCoins += Math.round(pointsEarned / 10);
+
+            addXP(15 * diffMult);
+
+            wordTimeRemaining = Math.min(wordTimeLimit, wordTimeRemaining + 1.8);
+
+            showHitEffect(clickX, clickY, `+${pointsEarned} pts (+1.8s ⏳)`, "var(--accent-green)");
+            document.getElementById("last-shot-info").innerText = `Accuracy: ${Math.round(accuracyRatio * 100)}% | Time: ${timeTakenSec.toFixed(2)}s`;
+
+            currentLetterIndex++;
+
+            checkAndUpdateLeaderboard();
+
+            if (currentLetterIndex >= currentWord.length) {
+                const totalWordTime = (Date.now() - wordStartTime) / 1000;
+                if (totalWordTime < fastestWord.time) {
+                    fastestWord = { word: currentWord, time: totalWordTime };
+                }
+
+                addXP(30 * diffMult);
+                if (gameLevel === 1 && !completedLevel1Words.includes(currentWord)) completedLevel1Words.push(currentWord);
+                renderWordSlots();
+                clearInterval(timerInterval);
+                setTimeout(() => nextWord(), 400);
+            } else {
+                renderWordSlots();
+                spawnBubbles();
+            }
+        } else {
+            playSound('error');
+            createParticleExplosion(clickX, clickY, "var(--accent-red)");
+            streak = 0;
+            score = Math.max(0, score - 30);
+            showHitEffect(clickX, clickY, "INCORRECT!", "var(--accent-red)");
+            spawnBubbles();
+        }
+
+        updateDashboard(aiMultiplier);
+        updateLivesUI();
+    }
+
+    function showSentenceLevel() {
+        gameActive = false;
+        readyWaiting = false;
+        clearInterval(timerInterval);
+        clearBubbles();
+        document.getElementById('ready-screen').style.display = 'none';
+        document.getElementById('sentence-level-panel').style.display = 'flex';
+        document.getElementById('sentence-title').innerText = '🌈 Level 2: Complete the sentences!';
+        renderSentenceQuestion();
+        const levelDisplay = document.getElementById('level-display');
+        if (levelDisplay) levelDisplay.innerText = '⭐ Level 2: Sentences';
+    }
+
+    function renderSentenceQuestion() {
+        const item = LEVEL2_SENTENCES[sentenceIndex];
+        if (!item) {
+            document.getElementById('sentence-level-panel').style.display = 'none';
+            showMatchingLevel();
+            return;
+        }
+        sentenceAnswered = false;
+        document.getElementById('sentence-progress').innerText = `Sentence ${sentenceIndex + 1} of ${LEVEL2_SENTENCES.length}`;
+        document.getElementById('sentence-question').innerText = item.sentence;
+        document.getElementById('sentence-feedback').style.display = 'none';
+        document.getElementById('sentence-next').style.display = 'none';
+        const options = document.getElementById('sentence-options');
+        options.innerHTML = '';
+        item.options.forEach(word => {
+            const button = document.createElement('button');
+            button.className = 'sentence-option';
+            button.innerText = word;
+            button.onclick = () => answerSentence(word);
+            options.appendChild(button);
+        });
+    }
+
+    function answerSentence(word) {
+        if (sentenceAnswered) return;
+        sentenceAnswered = true;
+        const item = LEVEL2_SENTENCES[sentenceIndex];
+        const feedback = document.getElementById('sentence-feedback');
+        const options = document.querySelectorAll('.sentence-option');
+        options.forEach(button => button.disabled = true);
+        if (word === item.answer) {
+            score += 100;
+            feedback.style.background = '#dcfce7';
+            feedback.style.color = '#166534';
+            feedback.innerText = 'Great job! 🐶💚 The correct sentence is: ' + item.sentence.replace('___', item.answer);
+            playSound('hit');
+        } else {
+            feedback.style.background = '#ffe4e6';
+            feedback.style.color = '#9f1239';
+            feedback.innerText = "That’s okay! 🐾 The correct answer is " + item.answer + ". Correct sentence: " + item.sentence.replace("___", item.answer);
+            playSound('error');
+        }
+        feedback.style.display = 'block';
+        document.getElementById('sentence-next').style.display = 'inline-block';
+        updateDashboard(1.0);
+    }
+
+    function advanceSentenceLevel() {
+        sentenceIndex++;
+        renderSentenceQuestion();
+    }
+
+    function showMatchingLevel() {
+        gameActive = false;
+        readyWaiting = false;
+        clearInterval(timerInterval);
+        clearBubbles();
+        document.getElementById('sentence-level-panel').style.display = 'none';
+        document.getElementById('game-finale').style.display = 'none';
+        document.getElementById('matching-level-panel').style.display = 'flex';
+        selectedMatchWord = null;
+        selectedMatchTranslation = null;
+        matchedPairs = new Set();
+        const levelDisplay = document.getElementById('level-display');
+        if (levelDisplay) levelDisplay.innerText = '⭐ Level 3: Matching';
+        renderMatchingLevel();
+    }
+
+    function renderMatchingLevel() {
+        const words = document.getElementById('matching-words');
+        const translations = document.getElementById('matching-translations');
+        words.innerHTML = '';
+        translations.innerHTML = '';
+        const shuffledWords = [...LEVEL3_PAIRS].sort(() => Math.random() - 0.5);
+        const shuffledTranslations = [...LEVEL3_PAIRS].sort(() => Math.random() - 0.5);
+        shuffledWords.forEach(pair => {
+            const button = document.createElement('button');
+            button.className = 'matching-item';
+            button.textContent = pair.word;
+            button.dataset.word = pair.word;
+            button.onclick = () => selectMatchWord(pair.word, button);
+            words.appendChild(button);
+        });
+        shuffledTranslations.forEach(pair => {
+            const button = document.createElement('button');
+            button.className = 'matching-item';
+            button.textContent = pair.translation;
+            button.dataset.translation = pair.word;
+            button.onclick = () => selectMatchTranslation(pair.word, button);
+            translations.appendChild(button);
+        });
+        updateMatchingProgress();
+        document.getElementById('matching-feedback').textContent = '';
+        document.getElementById('matching-connector').textContent = 'Choose a word and its translation ↔';
+    }
+
+    function selectMatchWord(word, button) {
+        if (matchedPairs.has(word)) return;
+        selectedMatchWord = word;
+        document.querySelectorAll('#matching-words .matching-item').forEach(item => item.classList.toggle('selected', item.dataset.word === word));
+        document.getElementById('matching-connector').textContent = word + '  ➜  choose its translation';
+        checkSelectedMatch();
+    }
+
+    function selectMatchTranslation(word, button) {
+        if (matchedPairs.has(word)) return;
+        selectedMatchTranslation = word;
+        document.querySelectorAll('#matching-translations .matching-item').forEach(item => item.classList.toggle('selected', item.dataset.translation === word));
+        const pair = LEVEL3_PAIRS.find(item => item.word === word);
+        document.getElementById('matching-connector').textContent = (selectedMatchWord || 'Word') + '  ➜  ' + pair.translation;
+        checkSelectedMatch();
+    }
+
+    function checkSelectedMatch() {
+        if (!selectedMatchWord || !selectedMatchTranslation) return;
+        const feedback = document.getElementById('matching-feedback');
+        if (selectedMatchWord === selectedMatchTranslation) {
+            matchedPairs.add(selectedMatchWord);
+            document.querySelectorAll('#matching-words .matching-item').forEach(item => {
+                if (item.dataset.word === selectedMatchWord) { item.classList.remove('selected'); item.classList.add('matched'); item.disabled = true; }
+            });
+            document.querySelectorAll('#matching-translations .matching-item').forEach(item => {
+                if (item.dataset.translation === selectedMatchTranslation) { item.classList.remove('selected'); item.classList.add('matched'); item.disabled = true; }
+            });
+            feedback.textContent = 'Correct match! Great job! ✅';
+            feedback.style.color = '#86efac';
+            score += 100;
+            playSound('hit');
+            updateMatchingProgress();
+            selectedMatchWord = null;
+            selectedMatchTranslation = null;
+            document.getElementById('matching-connector').textContent = 'Pair connected! ➜ Choose the next pair';
+            if (matchedPairs.size === LEVEL3_PAIRS.length) showGameFinale();
+        } else {
+            feedback.textContent = 'Not quite! Try matching the word with its correct translation.';
+            feedback.style.color = '#fca5a5';
+            document.querySelectorAll('.matching-item.selected').forEach(item => item.classList.add('wrong'));
+            playSound('error');
+            setTimeout(() => document.querySelectorAll('.matching-item.wrong').forEach(item => item.classList.remove('wrong')), 450);
+            selectedMatchWord = null;
+            selectedMatchTranslation = null;
+            document.querySelectorAll('.matching-item.selected').forEach(item => item.classList.remove('selected'));
+            document.getElementById('matching-connector').textContent = 'Try again: connect a word to its translation ↔';
+        }
+    }
+
+    function updateMatchingProgress() {
+        document.getElementById('matching-progress').textContent = 'Pairs matched: ' + matchedPairs.size + ' / ' + LEVEL3_PAIRS.length;
+    }
+
+    function showGameFinale() {
+        document.getElementById('matching-level-panel').style.display = 'none';
+        document.getElementById('game-finale').style.display = 'flex';
+        gameActive = false;
+        readyWaiting = false;
+        document.getElementById('level-display').innerText = '🏆 All 3 Levels Complete!';
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const goodbye = new SpeechSynthesisUtterance('Thank you for playing with us! You did an amazing job learning English. Keep learning, keep smiling, and goodbye!');
+            goodbye.lang = 'en-US';
+            goodbye.rate = 0.9;
+            window.speechSynthesis.speak(goodbye);
+        }
+        playSound('hit');
+    }
+
+    function finishGameAndReturn() {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        document.getElementById('game-finale').style.display = 'none';
+        showMainMenu();
+    }
+
+    function activatePowerUp(type) {
+        if (!gameActive || readyWaiting) return;
+
+        if (type === 'slow') {
+            if (powerupCounts.slow > 0) {
+                powerupCounts.slow--;
+                wordTimeRemaining = Math.min(wordTimeLimit, wordTimeRemaining + 4.0);
+                showCenterEffect("+4.0s ⏳", "var(--accent-yellow)");
+                saveGameData();
+                updatePowerupsUI();
+            }
+        } else if (type === 'double') {
+            if (powerupCounts.double > 0 && !activeEffects.double) {
+                powerupCounts.double--;
+                activeEffects.double = true;
+                document.getElementById('pw-double').classList.add('active');
+                showCenterEffect("2X POINTS ACTIVATED! ✨", "var(--accent-green)");
+                saveGameData();
+                updatePowerupsUI();
+
+                setTimeout(() => {
+                    activeEffects.double = false;
+                    document.getElementById('pw-double').classList.remove('active');
+                }, 8000);
+            }
+        } else if (type === 'aim') {
+            if (powerupCounts.aim > 0 && !activeEffects.aimBoost) {
+                powerupCounts.aim--;
+                activeEffects.aimBoost = true;
+                document.getElementById('pw-aim').classList.add('active');
+                showCenterEffect("+NEAT ACCURACY ACTIVATED! 🎯", "var(--accent-blue)");
+                saveGameData();
+                updatePowerupsUI();
+
+                setTimeout(() => {
+                    activeEffects.aimBoost = false;
+                    document.getElementById('pw-aim').classList.remove('active');
+                }, 8000);
+            }
+        }
+    }
+
+    function showHitEffect(x, y, text, color) {
+        const fx = document.createElement("div");
+        fx.className = "hit-effect";
+        fx.innerText = text;
+        fx.style.color = color;
+        fx.style.left = `${x}px`;
+        fx.style.top = `${y}px`;
+        stage.appendChild(fx);
+        setTimeout(() => fx.remove(), 800);
+    }
+
+    function showCenterEffect(text, color) {
+        showHitEffect(425, 215, text, color);
+    }
+
+    function updateDashboard(aiMultiplier) {
+        document.getElementById("score-val").innerText = score;
+        document.getElementById("streak-val").innerText = `${streak}x`;
+        document.getElementById("ai-mult-val").innerText = `${aiMultiplier}x`;
+        const avgAcc = totalShots > 0 ? Math.round((totalAccuracySum / totalShots) * 100) : 100;
+        document.getElementById("accuracy-val").innerText = `${avgAcc}%`;
+    }
+
+    window.onload = function() {
+        loadGameData();
+        initNeatapticAI();
+        changeLanguage('en');
+        updateLevelUI();
+        updateDifficultyButtons();
+    };
+</script>
+
+</body>
+</html>
